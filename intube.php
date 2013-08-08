@@ -9,7 +9,7 @@ Author URI: https://github.com/manu-dikzit/
 License: GPL2
 */
 /*
-Copyright 2012  Anshul Singhle (email : anshul.singhle@gmail.com)
+Copyright 2012  Abhimanyu Dikshit (email : abhimanyu@vozeal.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
