@@ -152,3 +152,16 @@
                               jQuery('.suggestions').hide();
                            }
                      }     
+function suggestion_row(w)
+{
+    var img_w = 155;
+      var l = w/img_w ;
+      return l;
+}
+function suggestion_column(h)
+{
+  var img_h = 106;
+  var b = h/img_h ;
+  return b;
+}
+      
