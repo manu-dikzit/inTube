@@ -1,0 +1,73 @@
+var suggestions = new Array;
+
+function getVideoThumbnail(videoId,quality){
+  var thumbNailSrc = "http://img.youtube.com/vi/" + videoId;
+  if(quality == null){
+    thumbNailSrc = thumbNailSrc + "/default.jpg" ;
+  } else if(quality == "medium"){
+    thumbNailSrc = thumbNailSrc + "/mqdefault.jpg" ;
+  } else if(quality == "high"){
+    thumbNailSrc = thumbNailSrc + "/hqdefault.jpg" ;
+  } else if(quality == "maxres"){
+    thumbNailSrc = thumbNailSrc + "/maxresdefault.jpg" ;
+  } else{
+    thumbNailSrc = thumbNailSrc + "/default.jpg" ;
+  }
+  return thumbNailSrc;
+}
+function placeSuggestions(userID,videoID){
+  suggestions = getSuggestions(userID,videoID);
+}
+
+function getSuggestions(userID,videoID){
+  console.log("getS called");
+  var ajaxSuggestions = new Array();
+  jQuery.ajax({
+    url:"http://localhost/getSuggestions.php",
+    type:"POST",
+    async: true,
+    data: {
+      userId: userID,
+      videoId: videoID,
+    },
+    success:function(msg){
+      console.log(msg);
+      suggestions = msg;
+    //  loadSuggestions();
+
+    },
+    error: function(er){
+      console.log(er);
+    },
+    dataType: "json"
+  });
+  return ajaxSuggestions;
+}
+function loadSuggestions(){
+  for(var i = 0 ; i < suggestions.length ; i++){
+    var suggestion = suggestions[i];
+    var thumbnail = document.createElement('img');
+    thumbnail.src = suggestion["thumbnail"];
+    thumbnail.id = suggestion["link"];
+    thumbnail.class = "suggestion";
+    thumbnail.title = suggestion["title"];
+    console.log(suggestion);
+    //jQuery('.suggestions').show();
+  }
+  jQuery('.suggestion').click(function(){
+    var selectedId                    = jQuery(this)[0]["id"];
+    console.log(jQuery(this));
+    window.location = selectedId;
+  }); 
+  jQuery('.suggestions').css({
+    "position" : "absolute",
+    "left"     : jQuery('#ytplayer').position().left,
+    "top"                      : jQuery('#ytplayer').position().top,
+    "display"   : 'none'
+  });
+  jQuery('.suggestion').css({
+    "height" : '107px',
+    "width" : '158px'
+  });
+  //  //console.log(thumbnail);
+}
